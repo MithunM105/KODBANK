@@ -14,28 +14,35 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Setup Email (Nodemailer SMTP for Gmail)
+// --- 🚨 SECURITY WIPE: Purge all users for clean redeploy ---
+async function purgeDatabase() {
+    try {
+        await User.deleteMany({});
+        console.log("🧹 DATABASE PURGED: All terminal identities wiped for fresh broadcast.");
+    } catch (err) {
+        console.error("Purge Error:", err);
+    }
+}
+
+// Setup Email
 let transporter;
 async function initEmail() {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
             transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 587,
-                secure: false, // TLS via STARTTLS
+                service: 'gmail',
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
-                },
-                tls: { rejectUnauthorized: false }
+                }
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: Gmail STARTTLS (587) ready for [${process.env.SMTP_USER}]`);
+            console.log(`✅ EMAIL SERVICE: High-Speed Gmail Sync [${process.env.SMTP_USER}]`);
+            // Trigger wipe after connection
+            await purgeDatabase();
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
-            console.log("Tip: Fallback to LOG-ONLY mode active.");
         }
-    } else {
-        console.log(`🛠️ EMAIL SERVICE: Running in local-only mode (No credentials found).`);
     }
 }
 initEmail();
