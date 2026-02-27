@@ -116,11 +116,32 @@ setInterval(() => {
     });
 }, 5000);
 
-// MongoDB Connection
+// MongoDB Connection Status Check Middleware
+const dbCheck = (req, res, next) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ 
+            message: 'DATABASE OFFLINE: Terminal cannot reach the Cloud Vault.',
+            diagnostic: 'Ensure MONGODB_URI environment variable is correctly set in Render.'
+        });
+    }
+    next();
+};
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
-mongoose.connect(MONGODB_URI)
-    .then(() => console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active'))
-    .catch(err => console.error('❌ DATABASE CONNECTION ERROR:', err.message));
+mongoose.connect(MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+})
+.then(() => console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active'))
+.catch(err => {
+    console.error('❌ DATABASE CONNECTION ERROR:', err.message);
+    console.log('--- ACTION REQUIRED ---');
+    console.log('1. Go to Render Dashboard -> Environment');
+    console.log('2. Add MONGODB_URI with your Atlas connection string.');
+    console.log('3. Ensure IP Whitelist (0.0.0.0/0) is set in MongoDB Atlas.');
+});
+
+app.use('/api', dbCheck);
 
 // Helper for GPay-style Reward Generation
 // Helper for Unified Coin/Cash Reward Generation (Spin Wheel)
@@ -174,6 +195,7 @@ app.post('/api/register', async (req, res) => {
         sendOTPEmail(email, otp);
         res.json({ message: 'Registration protocol initiated. Check encrypted channel for code.', email });
     } catch (err) {
+        console.error("Register Error:", err);
         res.status(500).json({ message: 'Register Protocol Malfunction' });
     }
 });
@@ -248,6 +270,7 @@ app.post('/api/verify-mpin', async (req, res) => {
             res.status(401).json({ success: false, message: 'Incorrect security key' });
         }
     } catch (err) {
+        console.error("mPIN Verify Error:", err);
         res.status(500).json({ message: 'Security verification failure' });
     }
 });
@@ -278,6 +301,7 @@ app.post('/api/login', async (req, res) => {
 
         res.json({ message: 'Login successful', username: user.username });
     } catch (err) {
+        console.error("Login Sync Error:", err);
         res.status(500).json({ message: 'Sync Malfunction' });
     }
 });
@@ -445,6 +469,7 @@ app.get('/api/dashboard', async (req, res) => {
             ]
         });
     } catch (err) {
+        console.error("Dashboard Sync Error:", err);
         res.status(500).json({ message: 'Dashboard Sync Protocol Failed' });
     }
 });
@@ -764,7 +789,20 @@ app.post('/api/invest/sell', async (req, res) => {
 
 // Catch-all route to serve the React app
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+    const indexPath = path.join(__dirname, '../frontend/dist/index.html');
+    if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.status(200).send(`
+            <div style="background: #020205; color: white; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: sans-serif; border: 1px solid #bc13fe;">
+                <h1 style="color: #ff007f;">KODBANK CORE ACTIVE</h1>
+                <p>Visual Interface (Frontend) not detected. The API is operational.</p>
+                <div style="padding: 10px; border: 1px dashed #bc13fe; border-radius: 8px; color: #00ffa3;">
+                    STATUS: ${mongoose.connection.readyState === 1 ? 'VAULT SYNCED ✅' : 'VAULT OFFLINE ❌'}
+                </div>
+            </div>
+        `);
+    }
 });
 
 app.listen(PORT, () => {
