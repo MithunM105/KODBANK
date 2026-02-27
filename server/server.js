@@ -19,17 +19,22 @@ async function initEmail() {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
             transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true,
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
-                }
+                },
+                connectionTimeout: 10000,
+                greetingTimeout: 10000,
+                socketTimeout: 10000
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: Gmail SMTP initialized for [${process.env.SMTP_USER}]`);
+            console.log(`✅ EMAIL SERVICE: Gmail SMTPS (465) established for [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
-            console.log("Tip: Ensure 'App Passwords' are used and 2FA is active.");
+            console.log("Tip: Port 465 is encrypted. Verify SMTP_PASS is a 16-char App Password.");
         }
     } else {
         console.log(`🛠️ EMAIL SERVICE: Running in local-only mode (No credentials found).`);
