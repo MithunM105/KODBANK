@@ -20,21 +20,19 @@ async function initEmail() {
         try {
             transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
-                port: 465,
-                secure: true,
+                port: 587,
+                secure: false, // TLS via STARTTLS
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
                 },
-                connectionTimeout: 10000,
-                greetingTimeout: 10000,
-                socketTimeout: 10000
+                tls: { rejectUnauthorized: false }
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: Gmail SMTPS (465) established for [${process.env.SMTP_USER}]`);
+            console.log(`✅ EMAIL SERVICE: Gmail STARTTLS (587) ready for [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
-            console.log("Tip: Port 465 is encrypted. Verify SMTP_PASS is a 16-char App Password.");
+            console.log("Tip: Fallback to LOG-ONLY mode active.");
         }
     } else {
         console.log(`🛠️ EMAIL SERVICE: Running in local-only mode (No credentials found).`);
@@ -43,10 +41,12 @@ async function initEmail() {
 initEmail();
 
 async function sendOTPEmail(email, otp) {
-    if (!transporter) {
-        console.log(`[LOCAL DEV] Verification code for ${email}: ${otp}`);
-        return;
-    }
+    // 🔐 BACKUP LOG (Always visible in Render Logs tab)
+    console.log(`-------------------------------------------`);
+    console.log(`🔑 KODBANK OTP FOR [${email}]: ${otp}`);
+    console.log(`-------------------------------------------`);
+
+    if (!transporter) return;
 
     try {
         await transporter.sendMail({
