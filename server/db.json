@@ -1,0 +1,984 @@
+{
+  "users": [
+    {
+      "username": "mithu",
+      "email": "mim22cs@cmrit.ac.in",
+      "password": "mithun@26",
+      "phone": "6366049708",
+      "active": true,
+      "balance": 69502.04000000001,
+      "transactions": [
+        {
+          "id": "TX1772208994502",
+          "type": "outgoing",
+          "category": "Fund Transfer",
+          "amount": 230,
+          "date": "2026-02-27T16:16:34.502Z",
+          "status": "Completed",
+          "note": "Sent to mithun: No note"
+        },
+        {
+          "id": "T1772193203648",
+          "type": "incoming",
+          "category": "Spin Reward",
+          "amount": 3,
+          "date": "2026-02-27T11:53:23.648Z",
+          "status": "Completed",
+          "note": "Spin Result: Upto $50"
+        },
+        {
+          "id": "TX1772192507954",
+          "type": "incoming",
+          "category": "Fund Transfer",
+          "amount": 25000,
+          "date": "2026-02-27T11:41:47.954Z",
+          "status": "Completed",
+          "note": "Received from mithun: No note"
+        },
+        {
+          "id": "T1772189238908",
+          "type": "incoming",
+          "category": "Spin Reward",
+          "amount": 15,
+          "date": "2026-02-27T10:47:18.908Z",
+          "status": "Completed",
+          "note": "Spin Result: Upto $50"
+        },
+        {
+          "id": "T1772181389434",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 56,
+          "date": "2026-02-27T08:36:29.434Z",
+          "status": "Completed",
+          "note": "Protocol R1772181389434 broadcast"
+        },
+        {
+          "id": "T1772181300476",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 62,
+          "date": "2026-02-27T08:35:00.476Z",
+          "status": "Completed",
+          "note": "Protocol R1772181300476 broadcast"
+        },
+        {
+          "id": "T1772181204862",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 106,
+          "date": "2026-02-27T08:33:24.862Z",
+          "status": "Completed",
+          "note": "Protocol R1772181204862 broadcast"
+        },
+        {
+          "id": "T1772181158655",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 54,
+          "date": "2026-02-27T08:32:38.655Z",
+          "status": "Completed",
+          "note": "Protocol R1772181158655 broadcast"
+        },
+        {
+          "id": "T1772181120797",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 26,
+          "date": "2026-02-27T08:32:00.797Z",
+          "status": "Completed",
+          "note": "Protocol R1772181120797 broadcast"
+        },
+        {
+          "id": "T1772164933309",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 149,
+          "date": "2026-02-27T04:02:13.309Z",
+          "status": "Completed",
+          "note": "Protocol R1772164933309 broadcast"
+        },
+        {
+          "id": "TX1772164406686",
+          "type": "outgoing",
+          "category": "Fund Transfer",
+          "amount": 124.99,
+          "date": "2026-02-27T03:53:26.686Z",
+          "status": "Completed",
+          "note": "Sent to mithun: No note"
+        },
+        {
+          "id": "T1772164352002",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 155,
+          "date": "2026-02-27T03:52:32.002Z",
+          "status": "Completed",
+          "note": "Protocol R1772164352002 broadcast"
+        },
+        {
+          "id": "T1772164326180",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 54,
+          "date": "2026-02-27T03:52:06.180Z",
+          "status": "Completed",
+          "note": "Protocol R1772164326180 broadcast"
+        },
+        {
+          "id": "TX1772164150061",
+          "type": "outgoing",
+          "category": "Fund Transfer",
+          "amount": 142.99,
+          "date": "2026-02-27T03:49:10.061Z",
+          "status": "Completed",
+          "note": "Sent to mithun: No note"
+        },
+        {
+          "id": "T1772164115033",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 123,
+          "date": "2026-02-27T03:48:35.033Z",
+          "status": "Completed",
+          "note": "Protocol R1772164115033 broadcast"
+        },
+        {
+          "id": "T1772164073709",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 163,
+          "date": "2026-02-27T03:47:53.709Z",
+          "status": "Completed",
+          "note": "Protocol R1772164073709 broadcast"
+        },
+        {
+          "id": "TX1772163736899",
+          "type": "outgoing",
+          "category": "Fund Transfer",
+          "amount": 4999.98,
+          "date": "2026-02-27T03:42:16.899Z",
+          "status": "Completed",
+          "note": "Sent to mithun: chumma "
+        },
+        {
+          "id": "T1772163592090",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 129,
+          "date": "2026-02-27T03:39:52.090Z",
+          "status": "Completed",
+          "note": "Protocol R1772163592090 broadcast"
+        }
+      ],
+      "cashbackWon": 1095,
+      "redeemedAmount": 0,
+      "rewardsHistory": [
+        {
+          "id": "R1772193203648",
+          "type": "Cash",
+          "label": "Upto $50",
+          "amount": 3,
+          "date": "2026-02-27T11:53:23.648Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772189238908",
+          "type": "Cash",
+          "label": "Upto $50",
+          "amount": 15,
+          "date": "2026-02-27T10:47:18.908Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772188133541",
+          "type": "Coins",
+          "label": "Upto 5000 Coins",
+          "amount": 3351,
+          "date": "2026-02-27T10:28:53.541Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772181389434",
+          "amount": 56,
+          "date": "2026-02-27T08:36:29.434Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772181300476",
+          "amount": 62,
+          "date": "2026-02-27T08:35:00.476Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772181204862",
+          "amount": 106,
+          "date": "2026-02-27T08:33:24.862Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772181158655",
+          "amount": 54,
+          "date": "2026-02-27T08:32:38.655Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772181120797",
+          "amount": 26,
+          "date": "2026-02-27T08:32:00.797Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772164933309",
+          "amount": 149,
+          "date": "2026-02-27T04:02:13.309Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772164352002",
+          "amount": 155,
+          "date": "2026-02-27T03:52:32.002Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772164326180",
+          "amount": 54,
+          "date": "2026-02-27T03:52:06.180Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772164115033",
+          "amount": 123,
+          "date": "2026-02-27T03:48:35.033Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772164073709",
+          "amount": 163,
+          "date": "2026-02-27T03:47:53.709Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772163592090",
+          "amount": 129,
+          "date": "2026-02-27T03:39:52.090Z",
+          "status": "Won"
+        }
+      ],
+      "availableRewards": [
+        {
+          "id": "R1772211892228",
+          "type": "coins",
+          "label": "Coin Bonus",
+          "amount": 503,
+          "icon": "🪙"
+        },
+        {
+          "id": "R1772212082230",
+          "type": "cash",
+          "label": "Cashback Win",
+          "amount": 12,
+          "icon": "💰"
+        },
+        {
+          "id": "R1772212082230",
+          "type": "cash",
+          "label": "Cashback Win",
+          "amount": 2,
+          "icon": "💰"
+        }
+      ],
+      "holdings": [
+        {
+          "company": "Apple Inc.",
+          "symbol": "AAPL",
+          "boughtPrice": 150.2,
+          "shares": 50,
+          "investedDate": "2023-11-12",
+          "investedAmount": 7510
+        },
+        {
+          "company": "Google",
+          "symbol": "GOOGL",
+          "boughtPrice": 2800.5,
+          "shares": 2,
+          "investedDate": "2024-01-05",
+          "investedAmount": 5601
+        },
+        {
+          "company": "Tesla",
+          "symbol": "TSLA",
+          "boughtPrice": 800,
+          "shares": 10,
+          "investedDate": "2023-12-20",
+          "investedAmount": 8000
+        },
+        {
+          "company": "Microsoft",
+          "symbol": "MSFT",
+          "boughtPrice": 300,
+          "shares": 25,
+          "investedDate": "2023-10-15",
+          "investedAmount": 7500
+        },
+        {
+          "company": "NVIDIA",
+          "symbol": "NVDA",
+          "boughtPrice": 400,
+          "shares": 15,
+          "investedDate": "2024-01-10",
+          "investedAmount": 6000
+        },
+        {
+          "company": "Amazon",
+          "symbol": "AMZN",
+          "boughtPrice": 140,
+          "shares": 40,
+          "investedDate": "2023-09-05",
+          "investedAmount": 5600
+        },
+        {
+          "company": "Meta",
+          "symbol": "META",
+          "boughtPrice": 350,
+          "shares": 12,
+          "investedDate": "2023-08-20",
+          "investedAmount": 4200
+        },
+        {
+          "company": "Netflix",
+          "symbol": "NFLX",
+          "boughtPrice": 500,
+          "shares": 8,
+          "investedDate": "2023-07-15",
+          "investedAmount": 4000
+        },
+        {
+          "company": "Intel",
+          "symbol": "INTC",
+          "boughtPrice": 55,
+          "shares": 100,
+          "investedDate": "2023-06-10",
+          "investedAmount": 5500
+        },
+        {
+          "company": "AMD",
+          "symbol": "AMD",
+          "boughtPrice": 120,
+          "shares": 50,
+          "investedDate": "2023-04-20",
+          "investedAmount": 6000
+        }
+      ],
+      "coins": 86777,
+      "mpin": "3672",
+      "lastRewardCycle": 7384093,
+      "lastReplenishment": 1772212082230,
+      "windowStartTime": 1772187521828,
+      "spinsInWindow": 5,
+      "coinHistory": [
+        {
+          "id": "R1772198133220",
+          "type": "Loss",
+          "label": "Better Luck",
+          "amount": 0,
+          "date": "2026-02-27T13:15:33.220Z"
+        },
+        {
+          "id": "R1772194257861",
+          "type": "Bonus",
+          "label": "Flat 15k Coins",
+          "amount": 15000,
+          "date": "2026-02-27T12:10:57.861Z"
+        }
+      ]
+    },
+    {
+      "username": "mithun",
+      "email": "mithunprajwal2003@gmail.com",
+      "password": "mithun@26",
+      "phone": "6366049708",
+      "active": true,
+      "balance": 30665.809999999998,
+      "transactions": [
+        {
+          "id": "T1772209060113",
+          "type": "incoming",
+          "category": "Rewards Redeemed",
+          "amount": 168,
+          "date": "2026-02-27T16:17:40.113Z",
+          "status": "Completed",
+          "note": "GPay-style broadcast redemption"
+        },
+        {
+          "id": "TX1772208994502",
+          "type": "incoming",
+          "category": "Fund Transfer",
+          "amount": 230,
+          "date": "2026-02-27T16:16:34.502Z",
+          "status": "Completed",
+          "note": "Received from mithu: No note"
+        },
+        {
+          "id": "T1772198694920",
+          "type": "incoming",
+          "category": "Spin Reward",
+          "amount": 28,
+          "date": "2026-02-27T13:24:54.920Z",
+          "status": "Completed",
+          "note": "Spin Result: Upto $50"
+        },
+        {
+          "id": "TX1772192507954",
+          "type": "outgoing",
+          "category": "Fund Transfer",
+          "amount": 25000,
+          "date": "2026-02-27T11:41:47.954Z",
+          "status": "Completed",
+          "note": "Sent to mithu: No note"
+        },
+        {
+          "id": "INV-1772192476024",
+          "type": "incoming",
+          "category": "Asset Liquidation",
+          "amount": 485.62,
+          "date": "2026-02-27T11:41:16.024Z",
+          "status": "Completed",
+          "note": "Sold 1 units of META at $485.62"
+        },
+        {
+          "id": "INV-1772192467246",
+          "type": "outgoing",
+          "category": "Asset Purchase",
+          "amount": 485.77,
+          "date": "2026-02-27T11:41:07.246Z",
+          "status": "Completed",
+          "note": "Purchased 1 units of META at $485.77"
+        },
+        {
+          "id": "T1772167510372",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 142,
+          "date": "2026-02-27T04:45:10.372Z",
+          "status": "Completed",
+          "note": "Protocol R1772167510372 broadcast"
+        },
+        {
+          "id": "T1772167466370",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 10,
+          "date": "2026-02-27T04:44:26.370Z",
+          "status": "Completed",
+          "note": "Protocol R1772167466370 broadcast"
+        },
+        {
+          "id": "T1772167441858",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 47,
+          "date": "2026-02-27T04:44:01.858Z",
+          "status": "Completed",
+          "note": "Protocol R1772167441858 broadcast"
+        },
+        {
+          "id": "T1772167323147",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 13,
+          "date": "2026-02-27T04:42:03.147Z",
+          "status": "Completed",
+          "note": "Protocol R1772167323147 broadcast"
+        },
+        {
+          "id": "T1772167306687",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 55,
+          "date": "2026-02-27T04:41:46.687Z",
+          "status": "Completed",
+          "note": "Protocol R1772167306687 broadcast"
+        },
+        {
+          "id": "T1772165778963",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 80,
+          "date": "2026-02-27T04:16:18.963Z",
+          "status": "Completed",
+          "note": "Protocol R1772165778963 broadcast"
+        },
+        {
+          "id": "T1772165264388",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 108,
+          "date": "2026-02-27T04:07:44.388Z",
+          "status": "Completed",
+          "note": "Protocol R1772165264388 broadcast"
+        },
+        {
+          "id": "T1772165240186",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 76,
+          "date": "2026-02-27T04:07:20.186Z",
+          "status": "Completed",
+          "note": "Protocol R1772165240186 broadcast"
+        },
+        {
+          "id": "T1772165216802",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 53,
+          "date": "2026-02-27T04:06:56.802Z",
+          "status": "Completed",
+          "note": "Protocol R1772165216802 broadcast"
+        },
+        {
+          "id": "T1772165042400",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 31,
+          "date": "2026-02-27T04:04:02.400Z",
+          "status": "Completed",
+          "note": "Protocol R1772165042400 broadcast"
+        },
+        {
+          "id": "T1772164994376",
+          "type": "incoming",
+          "category": "Cashback Reward",
+          "amount": 29,
+          "date": "2026-02-27T04:03:14.376Z",
+          "status": "Completed",
+          "note": "Protocol R1772164994376 broadcast"
+        },
+        {
+          "id": "TX1772164406686",
+          "type": "incoming",
+          "category": "Fund Transfer",
+          "amount": 124.99,
+          "date": "2026-02-27T03:53:26.686Z",
+          "status": "Completed",
+          "note": "Received from mithu: No note"
+        },
+        {
+          "id": "TX1772164150061",
+          "type": "incoming",
+          "category": "Fund Transfer",
+          "amount": 142.99,
+          "date": "2026-02-27T03:49:10.061Z",
+          "status": "Completed",
+          "note": "Received from mithu: No note"
+        },
+        {
+          "id": "TX1772163736899",
+          "type": "incoming",
+          "category": "Fund Transfer",
+          "amount": 4999.98,
+          "date": "2026-02-27T03:42:16.899Z",
+          "status": "Completed",
+          "note": "Received from mithu: chumma "
+        }
+      ],
+      "cashbackWon": 504,
+      "redeemedAmount": 168,
+      "rewardsHistory": [
+        {
+          "id": "R1772198694920",
+          "type": "Cash",
+          "label": "Upto $50",
+          "amount": 28,
+          "date": "2026-02-27T13:24:54.920Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772192416476",
+          "type": "Coins",
+          "label": "Upto 5k Coins",
+          "amount": 4148,
+          "date": "2026-02-27T11:40:16.476Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772167510372",
+          "amount": 142,
+          "date": "2026-02-27T04:45:10.372Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772167466370",
+          "amount": 10,
+          "date": "2026-02-27T04:44:26.370Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772167441858",
+          "amount": 47,
+          "date": "2026-02-27T04:44:01.858Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772167323147",
+          "amount": 13,
+          "date": "2026-02-27T04:42:03.147Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772167306687",
+          "amount": 55,
+          "date": "2026-02-27T04:41:46.687Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772165778963",
+          "amount": 80,
+          "date": "2026-02-27T04:16:18.963Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772165264388",
+          "amount": 108,
+          "date": "2026-02-27T04:07:44.388Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772165240186",
+          "amount": 76,
+          "date": "2026-02-27T04:07:20.186Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772165216802",
+          "amount": 53,
+          "date": "2026-02-27T04:06:56.802Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772165042400",
+          "amount": 31,
+          "date": "2026-02-27T04:04:02.400Z",
+          "status": "Won"
+        },
+        {
+          "id": "R1772164994376",
+          "amount": 29,
+          "date": "2026-02-27T04:03:14.376Z",
+          "status": "Won"
+        }
+      ],
+      "coins": 78923,
+      "spinsInWindow": 5,
+      "windowStartTime": 1772192406773,
+      "availableRewards": [
+        {
+          "id": "R1772209193484",
+          "type": "coins",
+          "label": "Coin Bonus",
+          "amount": 361,
+          "icon": "🪙"
+        },
+        {
+          "id": "R1772209193484",
+          "type": "coins",
+          "label": "Coin Bonus",
+          "amount": 475,
+          "icon": "🪙"
+        },
+        {
+          "id": "R1772209193484",
+          "type": "coins",
+          "label": "Coin Bonus",
+          "amount": 183,
+          "icon": "🪙"
+        }
+      ],
+      "holdings": [
+        {
+          "company": "Apple Inc.",
+          "symbol": "AAPL",
+          "boughtPrice": 150.2,
+          "shares": 50,
+          "investedDate": "2023-11-12",
+          "investedAmount": 7510
+        },
+        {
+          "company": "Google",
+          "symbol": "GOOGL",
+          "boughtPrice": 2800.5,
+          "shares": 2,
+          "investedDate": "2024-01-05",
+          "investedAmount": 5601
+        },
+        {
+          "company": "Tesla",
+          "symbol": "TSLA",
+          "boughtPrice": 800,
+          "shares": 10,
+          "investedDate": "2023-12-20",
+          "investedAmount": 8000
+        },
+        {
+          "company": "Microsoft",
+          "symbol": "MSFT",
+          "boughtPrice": 300,
+          "shares": 25,
+          "investedDate": "2023-10-15",
+          "investedAmount": 7500
+        },
+        {
+          "company": "NVIDIA",
+          "symbol": "NVDA",
+          "boughtPrice": 400,
+          "shares": 15,
+          "investedDate": "2024-01-10",
+          "investedAmount": 6000
+        },
+        {
+          "company": "Amazon",
+          "symbol": "AMZN",
+          "boughtPrice": 140,
+          "shares": 40,
+          "investedDate": "2023-09-05",
+          "investedAmount": 5600
+        },
+        {
+          "company": "Meta",
+          "symbol": "META",
+          "boughtPrice": 360.4438461538462,
+          "shares": 12,
+          "investedDate": "2023-08-20",
+          "investedAmount": 4325.326153846154
+        },
+        {
+          "company": "Netflix",
+          "symbol": "NFLX",
+          "boughtPrice": 500,
+          "shares": 8,
+          "investedDate": "2023-07-15",
+          "investedAmount": 4000
+        },
+        {
+          "company": "Intel",
+          "symbol": "INTC",
+          "boughtPrice": 55,
+          "shares": 100,
+          "investedDate": "2023-06-10",
+          "investedAmount": 5500
+        },
+        {
+          "company": "AMD",
+          "symbol": "AMD",
+          "boughtPrice": 120,
+          "shares": 50,
+          "investedDate": "2023-04-20",
+          "investedAmount": 6000
+        }
+      ],
+      "mpin": "3672",
+      "lastRewardCycle": 7384032,
+      "lastReplenishment": 1772209193484,
+      "coinHistory": [
+        {
+          "id": "R1772209030561",
+          "type": "Bonus",
+          "label": "Flat 3k Coins",
+          "amount": 3000,
+          "date": "2026-02-27T16:17:10.561Z"
+        },
+        {
+          "id": "R1772198716305",
+          "type": "Bonus",
+          "label": "Upto 5k Coins",
+          "amount": 4146,
+          "date": "2026-02-27T13:25:16.305Z"
+        },
+        {
+          "id": "R1772198647084",
+          "type": "Bonus",
+          "label": "Upto 5k Coins",
+          "amount": 4530,
+          "date": "2026-02-27T13:24:07.084Z"
+        }
+      ]
+    }
+  ],
+  "sessions": [
+    {
+      "username": "mithu",
+      "dq": "4b1424d5-a745-4353-92de-5ba2f989d54b",
+      "e": 1772167164143,
+      "o": "edeaec02-cd68-4bc1-ba04-693ffdd86387",
+      "loginTime": "2026-02-27T03:39:24.143Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "c0224068-6a5b-446f-8880-b289648a7662",
+      "e": 1772167298491,
+      "o": "e13e6deb-a5f4-4ec4-8d8d-89941ae092e4",
+      "loginTime": "2026-02-27T03:41:38.491Z"
+    },
+    {
+      "username": "mithun",
+      "dq": "70ccfcfa-ed8f-4060-8073-4f9ec859f815",
+      "e": 1772168587741,
+      "o": "3d9aae7d-f0ec-4b91-8b05-83199169b5a6",
+      "loginTime": "2026-02-27T04:03:07.741Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "ac741555-b8f0-42b3-9c03-40e5d16dd343",
+      "e": 1772169301338,
+      "o": "aefec406-56f2-4efc-8bcb-85fe278ce36c",
+      "loginTime": "2026-02-27T04:15:01.338Z"
+    },
+    {
+      "username": "mithun",
+      "dq": "68778d26-0930-4fe7-94db-baf63a6301b2",
+      "e": 1772169316776,
+      "o": "8a1bdea0-802f-4019-9ffe-fbf304a3c9df",
+      "loginTime": "2026-02-27T04:15:16.776Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "70845b8d-b56a-4765-88d9-1aa8f172f346",
+      "e": 1772171893982,
+      "o": "4eccda35-82ab-4cfe-a4a3-351e4153e3f2",
+      "loginTime": "2026-02-27T04:58:13.982Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "00b0a3ad-16fc-460c-9315-03cc436c0037",
+      "e": 1772184887147,
+      "o": "41335f69-cfad-4bc2-bc42-d0e2a75de00c",
+      "loginTime": "2026-02-27T08:34:47.147Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "fa0df70d-6872-484c-a87d-6af38f62ecc7",
+      "e": 1772185465261,
+      "o": "a499aa08-94d1-4899-aba7-a4923bb599a4",
+      "loginTime": "2026-02-27T08:44:25.261Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "b71d7d0a-0003-4614-9f4f-6b98d5c98afc",
+      "e": 1772185550565,
+      "o": "3a365a13-3ca3-459e-b9fd-e00c61d61acd",
+      "loginTime": "2026-02-27T08:45:50.565Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "df7f83b9-8015-4691-a7f0-dfd5700ff3cb",
+      "e": 1772186767935,
+      "o": "f00bfc69-5e9d-45ee-a0aa-84df380c9688",
+      "loginTime": "2026-02-27T09:06:07.935Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "6c0f9806-b00b-42c3-bfab-bb14f01a86df",
+      "e": 1772189129205,
+      "o": "e13107bc-7318-4339-a3a7-b9f26925b239",
+      "loginTime": "2026-02-27T09:45:29.205Z"
+    },
+    {
+      "username": "mithun",
+      "dq": "7ae458bb-5c00-4355-9151-d4fc9c2466d9",
+      "e": 1772196006746,
+      "o": "24383f30-d8a1-45ac-99fe-fe86b92cda81",
+      "loginTime": "2026-02-27T11:40:06.746Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "80a862e1-c386-4e7b-8d76-ddc4a791d595",
+      "e": 1772196193512,
+      "o": "f0cc48cf-7566-4c19-aacb-be5805347878",
+      "loginTime": "2026-02-27T11:43:13.512Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "3875b0ad-99db-4e31-9481-2d49a6dcee72",
+      "e": 1772196432828,
+      "o": "6de06113-b747-46fc-bf4f-47d1ed8bc605",
+      "loginTime": "2026-02-27T11:47:12.828Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "7d33273d-2c7d-4dc0-a06d-fe5f1a114263",
+      "e": 1772196708819,
+      "o": "783043ac-edce-4d27-9e8b-78ec0f8a6a00",
+      "loginTime": "2026-02-27T11:51:48.819Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "1d55e7b8-c64f-4f1b-a37a-d52872be433d",
+      "e": 1772197252178,
+      "o": "5b8e5059-a298-4876-be0f-e5c44d5ab809",
+      "loginTime": "2026-02-27T12:00:52.178Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "ad15fd9b-32fb-409f-a614-afb62c67d9f1",
+      "e": 1772200860062,
+      "o": "70a14ddb-6334-4d2d-944a-9d75bc62f87c",
+      "loginTime": "2026-02-27T13:01:00.062Z"
+    },
+    {
+      "username": "mithun",
+      "dq": "057d22fc-83d4-47d9-b6de-14faf5b6aa6f",
+      "e": 1772202237734,
+      "o": "2d53687a-a6e6-40e4-ad69-3c825a833007",
+      "loginTime": "2026-02-27T13:23:57.734Z"
+    },
+    {
+      "username": "mithun",
+      "dq": "95fdce16-7f10-477a-a872-7be521562d70",
+      "e": 1772202286514,
+      "o": "93d78005-0770-4082-9ade-58d58a6a42de",
+      "loginTime": "2026-02-27T13:24:46.514Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "17a1ffab-10ee-41af-abbd-0fcc219149ff",
+      "e": 1772212525262,
+      "o": "d8d866bd-efdf-4903-97a9-b10b515d4699",
+      "loginTime": "2026-02-27T16:15:25.262Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "680f8328-bb36-43f5-acd7-852ac617930e",
+      "e": 1772212571921,
+      "o": "68930eaf-bd81-422c-a29c-879970ee3c02",
+      "loginTime": "2026-02-27T16:16:11.921Z"
+    },
+    {
+      "username": "mithun",
+      "dq": "36dbfbe8-8295-4799-a829-0ba06cbdef2b",
+      "e": 1772212613108,
+      "o": "0ffb3afe-2a5e-4850-898b-2f3bedd2b954",
+      "loginTime": "2026-02-27T16:16:53.108Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "2f50b096-853e-405b-afdd-e4ca73f7d5b5",
+      "e": 1772212847743,
+      "o": "3dd4f6ce-0f02-420c-b576-d2a3720884a8",
+      "loginTime": "2026-02-27T16:20:47.743Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "2e96dadb-4cf9-4819-8a0a-2e26b1e4f3b6",
+      "e": 1772214268117,
+      "o": "7fe7a7b3-93c8-4f83-9f80-005239877a8c",
+      "loginTime": "2026-02-27T16:44:28.117Z"
+    },
+    {
+      "username": "mithu",
+      "dq": "920f61dc-f9a1-44f3-b571-b54dc4489018",
+      "e": 1772214711976,
+      "o": "55632146-a97b-4c1b-b8bd-29601da760ae",
+      "loginTime": "2026-02-27T16:51:51.976Z"
+    }
+  ]
+}
