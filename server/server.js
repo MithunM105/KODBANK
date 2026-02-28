@@ -13,7 +13,6 @@ const User = require('./models/User');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Setup Email (Nodemailer SMTP for Gmail)
 // --- 🚨 SECURITY WIPE: Purge all users for clean redeploy ---
 async function purgeDatabase() {
     try {
@@ -29,20 +28,29 @@ let transporter;
 async function initEmail() {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
+            // Using Explicit SMTP settings for maximum cloud compatibility
             transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true, // Use SSL/TLS
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
-                }
+                },
+                pool: true, // Use pooled connections for speed
+                maxConnections: 5,
+                connectionTimeout: 15000,
+                greetingTimeout: 15000,
+                socketTimeout: 30000
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: High-Speed Gmail Sync [${process.env.SMTP_USER}]`);
-            // Trigger wipe after connection
-            await purgeDatabase();
+            console.log(`✅ EMAIL SERVICE: Priority SMTP Established [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
+            console.log("Tip: Check App Password and ensure 2FA is active on the Gmail account.");
         }
+    } else {
+        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (No credentials found in environment).`);
     }
 }
 initEmail();
@@ -144,13 +152,13 @@ mongoose.connect(MONGODB_URI, {
     serverSelectionTimeoutMS: 5000,
     socketTimeoutMS: 45000,
 })
-.then(() => console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active'))
+.then(async () => {
+    console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
+    // Force a fresh start by purging users on every server restart
+    await purgeDatabase();
+})
 .catch(err => {
     console.error('❌ DATABASE CONNECTION ERROR:', err.message);
-    console.log('--- ACTION REQUIRED ---');
-    console.log('1. Go to Render Dashboard -> Environment');
-    console.log('2. Add MONGODB_URI with your Atlas connection string.');
-    console.log('3. Ensure IP Whitelist (0.0.0.0/0) is set in MongoDB Atlas.');
 });
 
 app.use('/api', dbCheck);
