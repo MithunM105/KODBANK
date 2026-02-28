@@ -23,21 +23,41 @@ async function purgeDatabase() {
     }
 }
 
-// Setup Email Engine (Lazy Initialization to prevent startup hangs)
+// Setup Email Engine (Optimized for Cloud Environments like Render)
 let transporter;
 function getTransporter() {
     if (!transporter) {
         const user = process.env.SMTP_USER;
         const pass = process.env.SMTP_PASS;
         if (user && pass) {
+            console.log("🚀 INITIALIZING EMAIL ENGINE: Targeting smtp.gmail.com:465");
             transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true, // Use SSL/TLS
                 auth: { user, pass },
-                connectionTimeout: 60000,
-                greetingTimeout: 60000,
-                socketTimeout: 60000,
+                tls: {
+                    // Do not fail on invalid certs (common in some cloud proxies)
+                    rejectUnauthorized: false
+                },
+                connectionTimeout: 10000, // 10s is enough for a handshake
+                greetingTimeout: 10000,
+                socketTimeout: 15000,
                 pool: true,
-                maxConnections: 5
+                maxConnections: 3,
+                maxMessages: 100,
+                debug: true, // Show debug info in logs
+                logger: true // Log the transaction
+            });
+
+            // Heartbeat check
+            transporter.verify((error, success) => {
+                if (error) {
+                    console.error("❌ EMAIL ENGINE OFFLINE:", error.message);
+                    console.log("💡 TIP: Render might be blocking SMTP ports. Consider using an API-based provider like SendGrid if this persists.");
+                } else {
+                    console.log("✅ EMAIL ENGINE ACTIVE: Ready for broadcast.");
+                }
             });
         }
     }
