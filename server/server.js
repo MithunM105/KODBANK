@@ -69,13 +69,15 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodban
 mongoose.connect(MONGODB_URI, {
     serverSelectionTimeoutMS: 30000,
 })
-.then(async () => {
-    console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
-    await purgeDatabase();
-})
-.catch(err => {
-    console.error('❌ DATABASE CONNECTION ERROR:', err.message);
-});
+    .then(async () => {
+        console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
+        await purgeDatabase();
+        // Initialize Email Engine Check on Startup
+        getTransporter();
+    })
+    .catch(err => {
+        console.error('❌ DATABASE CONNECTION ERROR:', err.message);
+    });
 
 
 
@@ -143,7 +145,7 @@ setInterval(() => {
 
         if (Math.random() > 0.995) {
             const surge = Math.random() > 0.5;
-            const eventMagnitude = 0.02 + (Math.random() * 0.03); 
+            const eventMagnitude = 0.02 + (Math.random() * 0.03);
             const eventChange = surge ? current * eventMagnitude : -current * eventMagnitude;
             globalStockPrices[symbol] = parseFloat((current + change + eventChange).toFixed(2));
 
@@ -163,7 +165,7 @@ setInterval(() => {
 // MongoDB Connection Status Check Middleware
 const dbCheck = (req, res, next) => {
     if (mongoose.connection.readyState !== 1) {
-        return res.status(503).json({ 
+        return res.status(503).json({
             message: 'DATABASE OFFLINE: Terminal cannot reach the Cloud Vault.',
             diagnostic: 'Ensure MONGODB_URI environment variable is correctly set in Render.'
         });
@@ -191,10 +193,10 @@ const getSpinResult = () => {
 
 const generateReward = () => {
     const r = [
-        { id: 'R'+Date.now(), type: 'cash', label: 'Cashback Win', amount: Math.floor(Math.random()*20)+1, icon: '💰' },
-        { id: 'R'+Date.now(), type: 'coins', label: 'Coin Bonus', amount: Math.floor(Math.random()*500)+100, icon: '🪙' }
+        { id: 'R' + Date.now(), type: 'cash', label: 'Cashback Win', amount: Math.floor(Math.random() * 20) + 1, icon: '💰' },
+        { id: 'R' + Date.now(), type: 'coins', label: 'Coin Bonus', amount: Math.floor(Math.random() * 500) + 100, icon: '🪙' }
     ];
-    return r[Math.floor(Math.random()*r.length)];
+    return r[Math.floor(Math.random() * r.length)];
 };
 
 // Auth Logic
@@ -308,9 +310,9 @@ app.post('/api/verify-mpin', async (req, res) => {
 app.post('/api/login', async (req, res) => {
     const { identifier, password } = req.body;
     try {
-        const user = await User.findOne({ 
-            $or: [{ username: identifier }, { email: identifier }], 
-            password: password 
+        const user = await User.findOne({
+            $or: [{ username: identifier }, { email: identifier }],
+            password: password
         });
 
         if (!user) {
@@ -381,7 +383,7 @@ app.get('/api/dashboard', async (req, res) => {
         // --- Spin Limits Logic (5 per 24 Hours) ---
         const now = Date.now();
         const DAY_MS = 24 * 60 * 60 * 1000;
-        
+
         if (now - (user.lastSpinTime || 0) > DAY_MS) {
             user.spinsInWindow = 0;
             // Note: we'll update lastSpinTime on actual spin if we want a sliding window, 
@@ -391,10 +393,10 @@ app.get('/api/dashboard', async (req, res) => {
 
         // --- Reward Replenishment Logic (3 Minute Cycle) ---
         const nowTs = Date.now();
-        const lastReplen = user.loginTime ? new Date(user.loginTime).getTime() : 0; 
+        const lastReplen = user.loginTime ? new Date(user.loginTime).getTime() : 0;
         // Using loginTime as a proxy or adding lastReplenishment field to schema
         // Let's assume schema has lastReplenishment or we use timestamps.
-        
+
         // Check if we should replenish
         if (!user.lastReplenishment || nowTs - user.lastReplenishment > 180000) {
             let countToAdd = 0;
@@ -405,7 +407,7 @@ app.get('/api/dashboard', async (req, res) => {
 
             if (countToAdd > 0) {
                 const newRewards = Array.from({ length: countToAdd }, () => generateReward());
-                user.availableRewards = [...(user.availableRewards || []), ...newRewards].slice(-3); 
+                user.availableRewards = [...(user.availableRewards || []), ...newRewards].slice(-3);
             }
             user.lastReplenishment = nowTs;
             await user.save();
@@ -508,8 +510,8 @@ app.get('/api/dashboard', async (req, res) => {
 function generateClassicMarketTrend(base, points) {
     let current = base;
     const history = [];
-    const drift = 0.0005; 
-    const volatility = 0.012; 
+    const drift = 0.0005;
+    const volatility = 0.012;
 
     for (let i = 0; i < points; i++) {
         const change = current * (drift + (Math.random() - 0.5) * volatility);
@@ -555,7 +557,7 @@ app.post('/api/reward/spin', async (req, res) => {
     try {
         const user = await User.findById(dq);
         if (!user) return res.status(401).json({ message: 'Identity missing' });
-        
+
         const now = Date.now();
         const DAY_MS = 24 * 60 * 60 * 1000;
         if (now - (user.windowStartTime || 0) > DAY_MS) {
@@ -574,7 +576,7 @@ app.post('/api/reward/spin', async (req, res) => {
         user.coins -= 3000;
         user.spinsInWindow = (user.spinsInWindow || 0) + 1;
         user.lastSpinTime = now;
-        
+
         const result = getSpinResult();
         const rewardId = 'R' + Date.now();
 
@@ -679,7 +681,7 @@ app.post('/api/transfer', async (req, res) => {
 
         if (!receiver) return res.status(404).json({ message: 'Recipient protocol not identified' });
         if (sender.username === receiver.username) return res.status(400).json({ message: 'Self-transfer anomaly detected' });
-        
+
         const transferAmount = parseFloat(amount);
         if (sender.balance < transferAmount) return res.status(400).json({ message: 'Insufficient terminal liquidity' });
         if (isNaN(transferAmount) || transferAmount <= 0) return res.status(400).json({ message: 'Invalid transmission amount' });
