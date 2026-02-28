@@ -1408,7 +1408,7 @@ input[type="range"]::-webkit-slider-thumb {
     /* Auth Arrays */
     .auth-card {
         padding: 2rem !important;
-        width: 90% !important;
+        width: 95% !important;
         margin: auto;
     }
 
@@ -1417,43 +1417,50 @@ input[type="range"]::-webkit-slider-thumb {
     .hero-stats-container { grid-template-columns: 1fr; }
     .stats-column-grid { grid-template-columns: 1fr; }
     
-    .balance-reveal { font-size: 2.5rem !important; }
+    .balance-reveal { font-size: 2.2rem !important; }
 
-    /* Debit Card Chassis */
+    /* Debit Card Chassis (Auto-Scale for Mobile) */
     .debit-card-wrapper {
         width: 100% !important;
-        max-width: 380px;
-        margin: auto;
+        max-width: 340px !important;
+        margin: 1rem auto;
+        perspective: 1200px;
     }
-    .debit-card { height: 220px !important; }
+    .debit-card { 
+        height: 200px !important; 
+        width: 100% !important;
+    }
 
-    /* Spin Wheel assembly */
+    /* Spin Wheel assembly (Auto-Scale for Mobile) */
     .wheel-container {
-        width: 320px !important;
-        height: 320px !important;
+        width: 300px !important;
+        height: 300px !important;
     }
-    .wheel-segment { font-size: 0.7rem !important; }
+    .wheel-segment { font-size: 0.65rem !important; }
+    .wheel-outer { padding: 5px !important; }
 }
 
 @media (max-width: 480px) {
-    .auth-page h1 { font-size: 1.8rem !important; }
-    .auth-card { padding: 1.5rem !important; }
+    .auth-page h1 { font-size: 1.6rem !important; letter-spacing: 2px; }
+    .auth-card { padding: 1.5rem !important; border-radius: 20px; }
 
     .wheel-container {
-        width: 280px !important;
-        height: 280px !important;
+        width: 250px !important;
+        height: 250px !important;
     }
     
     .floating-nav {
-        gap: 10px !important;
-        padding: 10px !important;
+        gap: 8px !important;
+        padding: 8px !important;
+        bottom: 10px;
     }
-    .nav-label { font-size: 0.6rem !important; }
+    .nav-label { font-size: 0.55rem !important; }
     
-    .balance-reveal { font-size: 2rem !important; }
+    .balance-reveal { font-size: 1.8rem !important; }
     
-    /* Ensure Lightning Borders remain visible but scaled */
+    /* Responsive Lightning Borders */
     .orange-lightning-border, .pink-lightning-border, .wheel-lightning-border {
         border-width: 2px !important;
+        top: -4px; left: -4px; right: -4px; bottom: -4px;
     }
 }
