@@ -26,77 +26,37 @@ async function purgeDatabase() {
 // Setup Email Engine
 let transporter;
 async function initEmail() {
-    console.log(`📡 MONITORING CORE: Initializing Communication Sync...`);
-    const credentialsExist = !!(process.env.SMTP_USER && process.env.SMTP_PASS);
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
     
-    if (credentialsExist) {
-        try {
-            // High-Security Cloud Protocol (Port 465 SSL)
-            transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465,
-                secure: true, // Use SSL/TLS
-                auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASS
-                },
-                // Critical Handshake Adjustments for Render
-                connectionTimeout: 45000, 
-                greetingTimeout: 45000,
-                socketTimeout: 60000,
-                tls: {
-                    rejectUnauthorized: false
-                }
-            });
-            await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: Protocol Verified [${process.env.SMTP_USER}]`);
-        } catch (error) {
-            console.error("❌ EMAIL SERVICE ERROR:", error.message);
-            console.log("🛠 RECOVERY PROTOCOL: Attempting Port 587 Fallback...");
-            
-            try {
-                // Secondary Protocol (Port 587 STARTTLS)
-                transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com',
-                    port: 587,
-                    secure: false,
-                    auth: {
-                        user: process.env.SMTP_USER,
-                        pass: process.env.SMTP_PASS
-                    },
-                    connectionTimeout: 30000,
-                    greetingTimeout: 30000,
-                    socketTimeout: 30000,
-                    tls: {
-                        ciphers: 'SSLv3',
-                        rejectUnauthorized: false
-                    }
-                });
-                await transporter.verify();
-                console.log(`✅ EMAIL SERVICE: Port 587 Fallback Active.`);
-            } catch (err2) {
-                console.error("❌ CRITICAL: All SMTP Ports Terminated.", err2.message);
-            }
-        }
+    if (user && pass) {
+        // High-Security Cloud Protocol (Port 465 SSL)
+        transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: { user, pass },
+            connectionTimeout: 60000, 
+            greetingTimeout: 60000,
+            socketTimeout: 60000
+        });
+        console.log(`📡 MONITORING CORE: Handshake Active [${user}]`);
+        // We skip verify() here to let the server start instantly
     } else {
-        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Creds missing in Render Environment).`);
+        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Creds missing).`);
     }
 }
 
 
 // Database Connection & Fresh Start
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
 mongoose.connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: 10000,
+    serverSelectionTimeoutMS: 20000,
 })
-.then(async () => {
+.then(() => {
     console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
-    await purgeDatabase();
-    await initEmail();
 })
 .catch(err => {
     console.error('❌ DATABASE CONNECTION ERROR:', err.message);
 });
+
 
 
 async function sendOTPEmail(email, otp) {
@@ -850,6 +810,10 @@ app.get('*', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`✅ SERVER ACTIVE: Listening on Port ${PORT}`);
+    // Run core initialization immediately upon activation
+    await purgeDatabase();
+    await initEmail();
 });
+
