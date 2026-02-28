@@ -17,43 +17,53 @@ const PORT = process.env.PORT || 5000;
 async function purgeDatabase() {
     try {
         await User.deleteMany({});
-        console.log("🧹 DATABASE PURGED: All terminal identities wiped for fresh broadcast.");
+        console.log("🧹 DATABASE PURGED: All legacy identities wiped for fresh broadcast.");
     } catch (err) {
         console.error("Purge Error:", err);
     }
 }
 
-// Setup Email
+// Setup Email Engine
 let transporter;
 async function initEmail() {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
-            // Using Explicit SMTP settings for maximum cloud compatibility
+            // Priority SMTP calibration for cloud environments
             transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
                 port: 465,
-                secure: true, // Use SSL/TLS
+                secure: true, // SSL required for port 465
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
                 },
-                pool: true, // Use pooled connections for speed
-                maxConnections: 5,
-                connectionTimeout: 15000,
-                greetingTimeout: 15000,
-                socketTimeout: 30000
+                pool: true,
+                maxConnections: 5
             });
             await transporter.verify();
             console.log(`✅ EMAIL SERVICE: Priority SMTP Established [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
-            console.log("Tip: Check App Password and ensure 2FA is active on the Gmail account.");
+            console.log("Tip: Ensure 'App Passwords' are used and the Gmail account has 2FA active.");
         }
     } else {
-        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (No credentials found in environment).`);
+        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Missing credentials).`);
     }
 }
-initEmail();
+
+// Database Connection & Fresh Start
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
+mongoose.connect(MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000,
+})
+.then(async () => {
+    console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
+    await purgeDatabase();
+    await initEmail();
+})
+.catch(err => {
+    console.error('❌ DATABASE CONNECTION ERROR:', err.message);
+});
 
 async function sendOTPEmail(email, otp) {
     // 🔐 BACKUP LOG (Always visible in Render Logs tab)
@@ -146,20 +156,6 @@ const dbCheck = (req, res, next) => {
     }
     next();
 };
-
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
-mongoose.connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000,
-    socketTimeoutMS: 45000,
-})
-.then(async () => {
-    console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
-    // Force a fresh start by purging users on every server restart
-    await purgeDatabase();
-})
-.catch(err => {
-    console.error('❌ DATABASE CONNECTION ERROR:', err.message);
-});
 
 app.use('/api', dbCheck);
 

@@ -1399,21 +1399,61 @@ input[type="range"]::-webkit-slider-thumb {
   animation: spin 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 
-/* Responsive */
+/* 📱 UNIVERSAL SCREENING PROTOCOL (Mobile & Tablet) */
+@media (max-width: 1024px) {
+    .hero-stats-container { grid-template-columns: 1fr 1fr; }
+}
+
 @media (max-width: 768px) {
-  .trends-grid {
-    grid-template-columns: 1fr;
-  }
+    /* Auth Arrays */
+    .auth-card {
+        padding: 2rem !important;
+        width: 90% !important;
+        margin: auto;
+    }
 
-  .hero-stats-container {
-    grid-template-columns: 1fr;
-  }
+    /* Core Terminal Layout */
+    .trends-grid { grid-template-columns: 1fr; }
+    .hero-stats-container { grid-template-columns: 1fr; }
+    .stats-column-grid { grid-template-columns: 1fr; }
+    
+    .balance-reveal { font-size: 2.5rem !important; }
 
-  .balance-reveal {
-    font-size: 3rem;
-  }
+    /* Debit Card Chassis */
+    .debit-card-wrapper {
+        width: 100% !important;
+        max-width: 380px;
+        margin: auto;
+    }
+    .debit-card { height: 220px !important; }
 
-  .stats-column-grid {
-    grid-template-columns: 1fr;
-  }
+    /* Spin Wheel assembly */
+    .wheel-container {
+        width: 320px !important;
+        height: 320px !important;
+    }
+    .wheel-segment { font-size: 0.7rem !important; }
+}
+
+@media (max-width: 480px) {
+    .auth-page h1 { font-size: 1.8rem !important; }
+    .auth-card { padding: 1.5rem !important; }
+
+    .wheel-container {
+        width: 280px !important;
+        height: 280px !important;
+    }
+    
+    .floating-nav {
+        gap: 10px !important;
+        padding: 10px !important;
+    }
+    .nav-label { font-size: 0.6rem !important; }
+    
+    .balance-reveal { font-size: 2rem !important; }
+    
+    /* Ensure Lightning Borders remain visible but scaled */
+    .orange-lightning-border, .pink-lightning-border, .wheel-lightning-border {
+        border-width: 2px !important;
+    }
 }
