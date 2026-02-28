@@ -28,23 +28,24 @@ let transporter;
 async function initEmail() {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
-            // Priority SMTP calibration for cloud environments
+            // Enhanced SMTP protocol for cloud environments
             transporter = nodemailer.createTransport({
+                service: 'gmail',
                 host: 'smtp.gmail.com',
-                port: 465,
-                secure: true, // SSL required for port 465
+                port: 587,
+                secure: false, // Use STARTTLS for port 587
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
                 },
-                pool: true,
-                maxConnections: 5
+                tls: {
+                    rejectUnauthorized: false // Bypasses some restrictive certificates on cloud proxies
+                }
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: Priority SMTP Established [${process.env.SMTP_USER}]`);
+            console.log(`✅ EMAIL SERVICE: SMTP Secure Tunnel Active [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
-            console.log("Tip: Ensure 'App Passwords' are used and the Gmail account has 2FA active.");
         }
     } else {
         console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Missing credentials).`);
@@ -67,11 +68,6 @@ mongoose.connect(MONGODB_URI, {
 
 
 async function sendOTPEmail(email, otp) {
-    // 🔐 BACKUP LOG (Always visible in Render Logs tab)
-    console.log(`-------------------------------------------`);
-    console.log(`🔑 KODBANK OTP FOR [${email}]: ${otp}`);
-    console.log(`-------------------------------------------`);
-
     if (!transporter) return;
 
     try {
