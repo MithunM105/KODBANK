@@ -46,7 +46,7 @@ async function initEmail() {
 }
 
 
-// Database Connection & Fresh Start
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
 mongoose.connect(MONGODB_URI, {
     serverSelectionTimeoutMS: 20000,
 })
