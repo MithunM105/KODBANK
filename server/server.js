@@ -54,7 +54,7 @@ async function initEmail() {
 // Database Connection & Fresh Start
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
 mongoose.connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 10000,
 })
 .then(async () => {
     console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
@@ -64,6 +64,7 @@ mongoose.connect(MONGODB_URI, {
 .catch(err => {
     console.error('❌ DATABASE CONNECTION ERROR:', err.message);
 });
+
 
 async function sendOTPEmail(email, otp) {
     // 🔐 BACKUP LOG (Always visible in Render Logs tab)
@@ -101,7 +102,7 @@ app.use(cors({
     credentials: true
 }));
 
-// Serve static files from the frontend/dist directory
+// Serve static assets from the frontend/dist folder
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // --- DYNAMIC MARKET ENGINE ---

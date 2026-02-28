@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "KODBANK Secure Banking Terminal",
   "scripts": {
-    "build": "bash render-build.sh",
+    "build": "npm install --prefix server && npm install --prefix frontend && npm run build --prefix frontend",
     "start": "node server/server.js"
   },
   "dependencies": {}
