@@ -23,35 +23,35 @@ async function purgeDatabase() {
     }
 }
 
-// Setup Email Engine
+// Setup Email Engine (Lazy Initialization to prevent startup hangs)
 let transporter;
-async function initEmail() {
-    const user = process.env.SMTP_USER;
-    const pass = process.env.SMTP_PASS;
-    
-    if (user && pass) {
-        // High-Security Cloud Protocol (Port 465 SSL)
-        transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: { user, pass },
-            connectionTimeout: 60000, 
-            greetingTimeout: 60000,
-            socketTimeout: 60000
-        });
-        console.log(`📡 MONITORING CORE: Handshake Active [${user}]`);
-        // We skip verify() here to let the server start instantly
-    } else {
-        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Creds missing).`);
+function getTransporter() {
+    if (!transporter) {
+        const user = process.env.SMTP_USER;
+        const pass = process.env.SMTP_PASS;
+        if (user && pass) {
+            transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: { user, pass },
+                connectionTimeout: 60000,
+                greetingTimeout: 60000,
+                socketTimeout: 60000,
+                pool: true,
+                maxConnections: 5
+            });
+        }
     }
+    return transporter;
 }
 
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
 mongoose.connect(MONGODB_URI, {
-    serverSelectionTimeoutMS: 20000,
+    serverSelectionTimeoutMS: 30000,
 })
-.then(() => {
+.then(async () => {
     console.log('✅ DATABASE CONNECTED: High-Fidelity Sync Active');
+    await purgeDatabase();
 })
 .catch(err => {
     console.error('❌ DATABASE CONNECTION ERROR:', err.message);
@@ -59,11 +59,16 @@ mongoose.connect(MONGODB_URI, {
 
 
 
+
 async function sendOTPEmail(email, otp) {
-    if (!transporter) return;
+    const activeTransporter = getTransporter();
+    if (!activeTransporter) {
+        console.log('⚠️ EMAIL SERVICE SKIPPED: Missing credentials in environment.');
+        return;
+    }
 
     try {
-        await transporter.sendMail({
+        await activeTransporter.sendMail({
             from: `"KODBANK SECURITY" <${process.env.SMTP_USER}>`,
             to: email,
             subject: `Verification Code: ${otp}`,
@@ -810,10 +815,8 @@ app.get('*', (req, res) => {
     }
 });
 
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
     console.log(`✅ SERVER ACTIVE: Listening on Port ${PORT}`);
-    // Run core initialization immediately upon activation
-    await purgeDatabase();
-    await initEmail();
 });
+
 
