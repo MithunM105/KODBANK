@@ -26,29 +26,63 @@ async function purgeDatabase() {
 // Setup Email Engine
 let transporter;
 async function initEmail() {
-    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+    console.log(`📡 MONITORING CORE: Initializing Communication Sync...`);
+    const credentialsExist = !!(process.env.SMTP_USER && process.env.SMTP_PASS);
+    
+    if (credentialsExist) {
         try {
-            // Priority Official Google Service Protocol for Cloud Reliability
+            // High-Security Cloud Protocol (Port 465 SSL)
             transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true, // Use SSL/TLS
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
                 },
-                // High-latency cloud handshake adjustments
-                connectionTimeout: 30000, 
-                greetingTimeout: 30000,
-                socketTimeout: 30000
+                // Critical Handshake Adjustments for Render
+                connectionTimeout: 45000, 
+                greetingTimeout: 45000,
+                socketTimeout: 60000,
+                tls: {
+                    rejectUnauthorized: false
+                }
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: Priority Sync Active [${process.env.SMTP_USER}]`);
+            console.log(`✅ EMAIL SERVICE: Protocol Verified [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
+            console.log("🛠 RECOVERY PROTOCOL: Attempting Port 587 Fallback...");
+            
+            try {
+                // Secondary Protocol (Port 587 STARTTLS)
+                transporter = nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 587,
+                    secure: false,
+                    auth: {
+                        user: process.env.SMTP_USER,
+                        pass: process.env.SMTP_PASS
+                    },
+                    connectionTimeout: 30000,
+                    greetingTimeout: 30000,
+                    socketTimeout: 30000,
+                    tls: {
+                        ciphers: 'SSLv3',
+                        rejectUnauthorized: false
+                    }
+                });
+                await transporter.verify();
+                console.log(`✅ EMAIL SERVICE: Port 587 Fallback Active.`);
+            } catch (err2) {
+                console.error("❌ CRITICAL: All SMTP Ports Terminated.", err2.message);
+            }
         }
     } else {
-        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Missing credentials).`);
+        console.log(`🛠️ EMAIL SERVICE: Skipping initialization (Creds missing in Render Environment).`);
     }
 }
+
 
 // Database Connection & Fresh Start
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/kodbank';
