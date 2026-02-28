@@ -23,45 +23,74 @@ async function purgeDatabase() {
     }
 }
 
-// Setup Email Engine (Optimized for Cloud Environments like Render)
-let transporter;
-function getTransporter() {
-    if (!transporter) {
-        const user = process.env.SMTP_USER;
-        const pass = process.env.SMTP_PASS;
-        if (user && pass) {
-            console.log("🚀 INITIALIZING EMAIL ENGINE: Targeting smtp.gmail.com:465");
-            transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                port: 465,
-                secure: true, // Use SSL/TLS
-                auth: { user, pass },
-                tls: {
-                    // Do not fail on invalid certs (common in some cloud proxies)
-                    rejectUnauthorized: false
-                },
-                connectionTimeout: 10000, // 10s is enough for a handshake
-                greetingTimeout: 10000,
-                socketTimeout: 15000,
-                pool: true,
-                maxConnections: 3,
-                maxMessages: 100,
-                debug: true, // Show debug info in logs
-                logger: true // Log the transaction
-            });
+// --- EMAIL ENGINE (Cloud Optimized API Strategy) ---
+const https = require('https');
 
-            // Heartbeat check
-            transporter.verify((error, success) => {
-                if (error) {
-                    console.error("❌ EMAIL ENGINE OFFLINE:", error.message);
-                    console.log("💡 TIP: Render might be blocking SMTP ports. Consider using an API-based provider like SendGrid if this persists.");
-                } else {
-                    console.log("✅ EMAIL ENGINE ACTIVE: Ready for broadcast.");
-                }
+function sendOTPEmail(email, otp) {
+    const apiKey = process.env.SENDGRID_API_KEY;
+    if (!apiKey) {
+        console.log('⚠️ EMAIL SERVICE SKIPPED: Missing SENDGRID_API_KEY in environment.');
+        return;
+    }
+
+    const data = JSON.stringify({
+        personalizations: [{ to: [{ email: email }] }],
+        from: { email: process.env.SMTP_USER, name: "KODBANK SECURITY" },
+        subject: `Verification Code: ${otp}`,
+        content: [{
+            type: 'text/html',
+            value: `
+                <div style="background: #020205; color: white; padding: 40px; font-family: sans-serif; border: 1px solid #bc13fe; border-radius: 20px; max-width: 500px; margin: auto;">
+                    <h1 style="color: #bc13fe; text-align: center;">KODBANK CORE</h1>
+                    <div style="height: 1px; background: rgba(188,19,254,0.2); margin: 20px 0;"></div>
+                    <p style="font-size: 1.1rem; line-height: 1.6;">A request was made to initialize a new KODBANK terminal. Use the encrypted protocol code below to verify your identity:</p>
+                    <div style="font-size: 3rem; font-weight: 900; letter-spacing: 12px; color: #ff007f; margin: 40px 0; text-align: center; background: rgba(255,0,127,0.05); padding: 20px; border-radius: 12px; border: 1px dashed #ff007f;">${otp}</div>
+                    <p style="color: #d1d1f0; font-size: 0.9rem; text-align: center;">If you didn't request this, please ignore this transmission. Your account remains secure.</p>
+                </div>
+            `
+        }]
+    });
+
+    const options = {
+        hostname: 'api.sendgrid.com',
+        port: 443,
+        path: '/v3/mail/send',
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+    };
+
+    console.log(`📡 DISPATCHING: API Broadcast to ${email}...`);
+    const req = https.request(options, (res) => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+            console.log(`✅ DISPATCH SUCCESS: Code verified by ${email}`);
+        } else {
+            let body = '';
+            res.on('data', d => body += d);
+            res.on('end', () => {
+                console.error(`❌ DISPATCH FAILED: Status ${res.statusCode}`, body);
             });
         }
+    });
+
+    req.on('error', (e) => {
+        console.error(`❌ API OFFLINE: ${e.message}`);
+    });
+
+    req.write(data);
+    req.end();
+}
+
+// Diagnostic on Startup
+function getTransporter() {
+    if (process.env.SENDGRID_API_KEY) {
+        console.log("✅ EMAIL ENGINE ACTIVE: SendGrid API Channel Ready.");
+    } else {
+        console.log("⚠️ EMAIL ENGINE STANDBY: Waiting for SENDGRID_API_KEY.");
     }
-    return transporter;
 }
 
 
@@ -81,34 +110,6 @@ mongoose.connect(MONGODB_URI, {
 
 
 
-
-async function sendOTPEmail(email, otp) {
-    const activeTransporter = getTransporter();
-    if (!activeTransporter) {
-        console.log('⚠️ EMAIL SERVICE SKIPPED: Missing credentials in environment.');
-        return;
-    }
-
-    try {
-        await activeTransporter.sendMail({
-            from: `"KODBANK SECURITY" <${process.env.SMTP_USER}>`,
-            to: email,
-            subject: `Verification Code: ${otp}`,
-            html: `
-                <div style="background: #020205; color: white; padding: 40px; font-family: sans-serif; border: 1px solid #bc13fe; border-radius: 20px; max-width: 500px; margin: auto;">
-                    <h1 style="color: #bc13fe; text-align: center;">KODBANK CORE</h1>
-                    <div style="height: 1px; background: rgba(188,19,254,0.2); margin: 20px 0;"></div>
-                    <p style="font-size: 1.1rem; line-height: 1.6;">A request was made to initialize a new KODBANK terminal. Use the encrypted protocol code below to verify your identity:</p>
-                    <div style="font-size: 3rem; font-weight: 900; letter-spacing: 12px; color: #ff007f; margin: 40px 0; text-align: center; background: rgba(255,0,127,0.05); padding: 20px; border-radius: 12px; border: 1px dashed #ff007f;">${otp}</div>
-                    <p style="color: #d1d1f0; font-size: 0.9rem; text-align: center;">If you didn't request this, please ignore this transmission. Your account remains secure.</p>
-                </div>
-            `
-        });
-        console.log(`Email dispatched successfully to ${email}`);
-    } catch (err) {
-        console.error("Failed to send email to", email, ":", err.message);
-    }
-}
 
 app.use(express.json());
 app.use(cookieParser());
