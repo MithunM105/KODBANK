@@ -28,22 +28,26 @@ let transporter;
 async function initEmail() {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
         try {
-            // Enhanced SMTP protocol for cloud environments
+            // Ultra-Resilient SMTP Protocol for Cloud Synchronization
             transporter = nodemailer.createTransport({
-                service: 'gmail',
                 host: 'smtp.gmail.com',
                 port: 587,
-                secure: false, // Use STARTTLS for port 587
+                secure: false, // STARTTLS required for Port 587
                 auth: {
                     user: process.env.SMTP_USER,
                     pass: process.env.SMTP_PASS
                 },
+                pool: true, // Reuse connections for speed
+                maxConnections: 5,
+                connectionTimeout: 10000,
+                greetingTimeout: 10000,
                 tls: {
-                    rejectUnauthorized: false // Bypasses some restrictive certificates on cloud proxies
+                    ciphers: 'SSLv3',
+                    rejectUnauthorized: false // Bypasses restricted cloud proxies
                 }
             });
             await transporter.verify();
-            console.log(`✅ EMAIL SERVICE: SMTP Secure Tunnel Active [${process.env.SMTP_USER}]`);
+            console.log(`✅ EMAIL SERVICE: Priority Sync Active [${process.env.SMTP_USER}]`);
         } catch (error) {
             console.error("❌ EMAIL SERVICE ERROR:", error.message);
         }
